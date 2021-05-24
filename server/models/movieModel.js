@@ -7,7 +7,7 @@ const movieSchema=mongoose.Schema({
     Director: [String],
     Cast: [String],
     Rated:String,
-    ReleaseDate:Date,
+    ReleaseDate:String,
     Length:String,
     Cover:String,
     Genre:[String],
