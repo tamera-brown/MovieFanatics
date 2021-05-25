@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Drawer, Button } from 'antd';
+import { Drawer, Button,} from 'antd';
 import './Sections/Navbar.css';
-
+// const Logo = require('../../../assets/images/Logo.png');
 
 function NavBar() {
   const [visible, setVisible] = useState(false)
@@ -18,7 +18,9 @@ function NavBar() {
 
   return (
     <nav className="menu" style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-      
+      <div className="menu__logo">
+        <a href="/">MovieFanatics</a>
+      </div>
       <div className="menu__container">
         <div className="menu_left">
           <LeftMenu mode="horizontal" />
@@ -31,7 +33,7 @@ function NavBar() {
           type="primary"
           onClick={showDrawer}
         >
-         
+          {/* <Icon type="align-right" /> */}
         </Button>
         <Drawer
           title="Basic Drawer"
@@ -50,3 +52,4 @@ function NavBar() {
 }
 
 export default NavBar
+
