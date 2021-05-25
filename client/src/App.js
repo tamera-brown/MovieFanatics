@@ -1,45 +1,31 @@
-import React,{ useState, useEffect }from 'react'
-import Form from './components/Form/form.js'
-import Movies from './components/Movies/movies.js'
-import useStyles from './styles'
-import { useDispatch } from 'react-redux';
-import {getMovies} from './actions/movies'
-import {Container, AppBar, Typography, Grow, Grid,Toolbar,Button,IconButton} from '@material-ui/core'
+import React, { Suspense } from 'react';
+import {  BrowserRouter,Route, Switch } from "react-router-dom";
+import Auth from "./auth/auth";
+// pages for this product
+import LandingPage from "./components/HomePage/HomePage";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
+import NavBar from "./components/NavBar/NavBar";
+import MovieDetail from "./components/MovieDetails/MovieDetails"
 
-
-const App=()=>{
-    const [currentId, setCurrentId] = useState(0);
-    const dispatch = useDispatch();
-    const classes=useStyles();
-
-    useEffect(() => {
-        dispatch(getMovies());
-      }, [currentId, dispatch]);
-    
-return(
-   
-    <div className={classes.root} maxWidth="lg">
-        <AppBar position="static">
-            <Toolbar>
-            <Typography className={classes.heading} variant="h2" align="center">MovieFanatics</Typography>
-            <Button color="inherit">Login</Button>
-            </Toolbar>
-           
-            {/* <img src={movies} alt="movies" height="60"/> */}
-        </AppBar>
-        <Grow in>
-            <Container>
-                <Grid className={classes.mainContainer} container justify="space-between" alignItems="stretch" spacing={3}>
-                    <Grid item xs={12} sm={7}>
-                    <Movies setCurrentId={setCurrentId}/>
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                        <Form currentId={currentId} setCurrentId={setCurrentId}/>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Grow>
-    </div>
-);
+// import MovieDetail from "./components/MovieDetails"
+import FavoritePage from "./components/FavoritePage/FavoritPage"
+function App() {
+  return (
+    <BrowserRouter     fallback={(<div>Loading...</div>)}>
+      <NavBar />
+      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/movie/:movieId" component={MovieDetail} />
+          <Route exact path="/favorite" component={FavoritePage} />
+        </Switch>
+      </div>
+     
+    </BrowserRouter>
+  );
 }
+
 export default App;
