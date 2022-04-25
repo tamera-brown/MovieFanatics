@@ -3,7 +3,7 @@ import { img_300, unavailable } from "../../config/config";
 import "./MovieCard.css";
 import ContentModal from "../ContentModal/ContentModal";
 
-const MovieCard = ({
+const SingleContent = ({
   id,
   poster,
   title,
@@ -31,4 +31,4 @@ const MovieCard = ({
   );
 };
 
-export default MovieCard;
+export default SingleContent;

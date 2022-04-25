@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Genres from "../../components/Genres/Genres";
-import MovieCard from "../../components/MovieCard/MovieCard";
+import SingleContent from "../../components/MovieCard/MovieCard";
 import useGenre from "../../components/Genres/useGenre";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import { API_KEY, API_URL } from "../../config/config";
+import { API_KEY,API_URL } from "../../config/config";
 
 const Movies = () => {
   const [genres, setGenres] = useState([]);
@@ -43,7 +43,7 @@ const Movies = () => {
       <div className="trending">
         {content &&
           content.map((c) => (
-            <MovieCard
+            <SingleContent
               key={c.id}
               id={c.id}
               poster={c.poster_path}

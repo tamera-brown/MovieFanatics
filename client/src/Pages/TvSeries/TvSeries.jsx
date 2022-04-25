@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Genres from "../../components/Genres/Genres";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import MovieCard from "../../components/MovieCard/MovieCard";
-import useGenre from "../../components/Genres/useGenre"
+import SingleContent from "../../components/MovieCard/MovieCard";
 import { API_KEY, API_URL } from "../../config/config";
+import useGenre from "../../components/Genres/useGenre";
 
-const Series = () => {
+const TvSeries = () => {
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [page, setPage] = useState(1);
@@ -43,7 +43,7 @@ const Series = () => {
       <div className="trending">
         {content &&
           content.map((c) => (
-            <MovieCard
+            <SingleContent
               key={c.id}
               id={c.id}
               poster={c.poster_path}
@@ -61,4 +61,4 @@ const Series = () => {
   );
 };
 
-export default Series;
+export default TvSeries;

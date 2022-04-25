@@ -1,12 +1,12 @@
-import React from 'react';
-import {  BrowserRouter,Route, Switch } from "react-router-dom";
-import { Container } from "@material-ui/core";
-import Header from './components/Header/Header';
-import NavBar from './components/NavBar/NavBar';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import Header from "./components/Header/Header";
 import Movies from "./Pages/Movies/Movies";
+import TvSeries from "./Pages/TvSeries/TvSeries";
 import Trending from "./Pages/Trending/Trending";
-import TvSeries from './Pages/TvSeries/TvSeries';
 import Search from "./Pages/Search/Search";
+import { Container } from "@material-ui/core";
+import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (

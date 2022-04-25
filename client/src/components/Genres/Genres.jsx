@@ -1,7 +1,6 @@
 import { Chip } from "@material-ui/core";
 import axios from "axios";
 import { useEffect } from "react";
-import { API_KEY, API_URL} from "../../config/config";
 
 const Genres = ({
   selectedGenres,
@@ -27,7 +26,7 @@ const Genres = ({
 
   const fetchGenres = async () => {
     const { data } = await axios.get(
-      `${API_URL}genre/${type}/list?api_key=${API_KEY}&language=en-US`
+      `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
     setGenres(data.genres);
   };
