@@ -5,6 +5,7 @@ import Movies from "./Pages/Movies/Movies";
 import TvSeries from "./Pages/TvSeries/TvSeries";
 import Trending from "./Pages/Trending/Trending";
 import Search from "./Pages/Search/Search";
+import InTheaters from "./Pages/InTheaters/InTheaters";
 import { Container } from "@material-ui/core";
 import NavBar from "./components/NavBar/NavBar";
 
@@ -16,6 +17,7 @@ function App() {
         <Container>
           <Switch>
             <Route path="/" component={Trending} exact />
+            <Route path="/inTheaters" component={InTheaters}/>
             <Route path="/movies" component={Movies} />
             <Route path="/series" component={TvSeries} />
             <Route path="/search" component={Search} />

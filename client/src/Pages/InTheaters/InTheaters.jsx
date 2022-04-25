@@ -1,23 +1,19 @@
 import axios from "axios";
+import "./InTheaters.css";
 import { useEffect, useState } from "react";
-import Genres from "../../components/Genres/Genres";
 import MovieCard from "../../components/MovieCard/MovieCard";
-import useGenre from "../../components/Genres/useGenre";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import { API_KEY,API_URL } from "../../config/config";
 
-const Movies = () => {
-  const [genres, setGenres] = useState([]);
-  const [selectedGenres, setSelectedGenres] = useState([]);
+const InTheaters = () => {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
   const [numOfPages, setNumOfPages] = useState();
-  const genreforURL = useGenre(selectedGenres);
   // console.log(selectedGenres);
 
   const fetchMovies = async () => {
     const { data } = await axios.get(
-      `${API_URL}discover/movie?api_key=${API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`
+      `${API_URL}movie/now_playing?api_key=${API_KEY}&language=en-US&page=${page}&region=US`
     );
     setContent(data.results);
     setNumOfPages(data.total_pages);
@@ -27,20 +23,12 @@ const Movies = () => {
     window.scroll(0, 0);
     fetchMovies();
     // eslint-disable-next-line
-  }, [genreforURL, page]);
+  }, [page]);
 
   return (
     <div>
-      <span className="pageTitle">Discover Movies</span>
-      <Genres
-        type="movie"
-        selectedGenres={selectedGenres}
-        setSelectedGenres={setSelectedGenres}
-        genres={genres}
-        setGenres={setGenres}
-        setPage={setPage}
-      />
-      <div className="trending">
+      <span className="pageTitle">Now Playing</span>
+      <div className="inTheaters">
         {content &&
           content.map((c) => (
             <MovieCard
@@ -61,4 +49,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default InTheaters;
