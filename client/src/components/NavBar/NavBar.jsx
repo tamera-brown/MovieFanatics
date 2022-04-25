@@ -1,55 +1,69 @@
-import React, { useState } from 'react';
-import LeftMenu from './Sections/LeftMenu';
-import RightMenu from './Sections/RightMenu';
-import { Drawer, Button,} from 'antd';
-import './Sections/Navbar.css';
-// const Logo = require('../../../assets/images/Logo.png');
+import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import TvIcon from "@material-ui/icons/Tv";
+import MovieIcon from "@material-ui/icons/Movie";
+import SearchIcon from "@material-ui/icons/Search";
+import WhatshotIcon from "@material-ui/icons/Whatshot";
+import { useHistory } from "react-router-dom";
 
-function NavBar() {
-  const [visible, setVisible] = useState(false)
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    position: "fixed",
+    bottom: 0,
+    backgroundColor: "#2d313a",
+    zIndex: 100,
+  },
+});
 
-  const showDrawer = () => {
-    setVisible(true)
-  };
+export default function SimpleBottomNavigation() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+  const history = useHistory();
 
-  const onClose = () => {
-    setVisible(false)
-  };
+  useEffect(() => {
+    if (value === 0) {
+      history.push("/");
+    } else if (value === 1) {
+      history.push("/movies");
+    } else if (value === 2) {
+      history.push("/series");
+    } else if (value === 3) {
+      history.push("/search");
+    }
+  }, [value, history]);
 
   return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-      <div className="menu__logo">
-        <a href="/">MovieFanatics</a>
-      </div>
-      <div className="menu__container">
-        <div className="menu_left">
-          <LeftMenu mode="horizontal" />
-        </div>
-        <div className="menu_rigth">
-          <RightMenu mode="horizontal" />
-        </div>
-        <Button
-          className="menu__mobile-button"
-          type="primary"
-          onClick={showDrawer}
-        >
-          {/* <Icon type="align-right" /> */}
-        </Button>
-        <Drawer
-          title="Basic Drawer"
-          placement="right"
-          className="menu_drawer"
-          closable={false}
-          onClose={onClose}
-          visible={visible}
-        >
-          <LeftMenu mode="inline" />
-          <RightMenu mode="inline" />
-        </Drawer>
-      </div>
-    </nav>
-  )
+    <BottomNavigation
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+      showLabels
+      className={classes.root}
+    >
+      <BottomNavigationAction
+        style={{ color: "white" }}
+        label="Trending"
+        icon={<WhatshotIcon />}
+      />
+      <BottomNavigationAction
+        style={{ color: "white" }}
+        label="Movies"
+        icon={<MovieIcon />}
+      />
+      <BottomNavigationAction
+        style={{ color: "white" }}
+        label="TV Series"
+        icon={<TvIcon />}
+      />
+      <BottomNavigationAction
+        style={{ color: "white" }}
+        label="Search"
+        icon={<SearchIcon />}
+      />
+    </BottomNavigation>
+  );
 }
-
-export default NavBar
-

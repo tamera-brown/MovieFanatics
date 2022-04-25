@@ -1,29 +1,28 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import {  BrowserRouter,Route, Switch } from "react-router-dom";
-import Auth from "./auth/auth";
-// pages for this product
-import LandingPage from "./components/HomePage/HomePage";
-import LoginPage from "./components/LoginPage/LoginPage";
-import RegisterPage from "./components/RegisterPage/RegisterPage";
-import NavBar from "./components/NavBar/NavBar";
-import MovieDetail from "./components/MovieDetails/MovieDetails"
+import { Container } from "@material-ui/core";
+import Header from './components/Header/Header';
+import NavBar from './components/NavBar/NavBar';
+import Movies from "./Pages/Movies/Movies";
+import Trending from "./Pages/Trending/Trending";
+import TvSeries from './Pages/TvSeries/TvSeries';
+import Search from "./Pages/Search/Search";
 
-// import MovieDetail from "./components/MovieDetails"
-import FavoritePage from "./components/FavoritePage/FavoritPage"
 function App() {
   return (
-    <BrowserRouter     fallback={(<div>Loading...</div>)}>
-      <NavBar />
-      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/movie/:movieId" component={MovieDetail} />
-          <Route exact path="/favorite" component={FavoritePage} />
-        </Switch>
+    <BrowserRouter>
+      <Header />
+      <div className="app">
+        <Container>
+          <Switch>
+            <Route path="/" component={Trending} exact />
+            <Route path="/movies" component={Movies} />
+            <Route path="/series" component={TvSeries} />
+            <Route path="/search" component={Search} />
+          </Switch>
+        </Container>
       </div>
-     
+      <NavBar />
     </BrowserRouter>
   );
 }
