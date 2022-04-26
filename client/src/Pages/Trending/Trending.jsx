@@ -1,7 +1,7 @@
 import axios from "axios";
 import "./Trending.css";
 import { useEffect, useState } from "react";
-import SingleContent from "../../components/MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import { API_KEY,API_URL } from "../../config/config";
 
@@ -29,7 +29,7 @@ const Trending = () => {
       <div className="trending">
         {content &&
           content.map((c) => (
-            <SingleContent
+            <MovieCard
               key={c.id}
               id={c.id}
               poster={c.poster_path}

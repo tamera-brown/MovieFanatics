@@ -39,7 +39,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
-  const [providers,setProviders]=useState();
+  const [providers,setProviders]=useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,9 +71,18 @@ export default function TransitionsModal({ children, media_type, id }) {
       `${API_URL}${media_type}/${id}/watch/providers?api_key=${API_KEY}`
     );
     setProviders(data.results.US)
-    // console.log(providers)
+    console.log(providers)
 
   }
+  const convertMinsToTime = (mins) => {
+  let hours = Math.floor(mins / 60);
+  let minutes = mins % 60;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  if(hours>1){
+    return `${hours} hrs ${minutes} mins`
+  }
+  return`${hours} hr ${minutes} mins` ;
+}
   useEffect(() => {   
     fetchData();
     fetchVideo();
@@ -139,7 +148,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                     <i className="tagline">{content.tagline}</i>
 
                   )}
-                  <p className="runTime">{content.runtime} minutes</p>
+                  <p className="runTime">{convertMinsToTime(content.runtime)}</p>
 
                   <span className="ContentModal__description">
                     {content.overview}
@@ -161,7 +170,11 @@ export default function TransitionsModal({ children, media_type, id }) {
                   
                 </div>
               </div>
-              
+              {/* {providers &&
+          providers.map((c) => (
+              <h1>{c.US.buy.logo_path}</h1>
+             
+          ))} */}
             </div>
           )}
         </Fade>

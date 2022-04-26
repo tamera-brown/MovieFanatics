@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Genres from "../../components/Genres/Genres";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import SingleContent from "../../components/MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import { API_KEY, API_URL } from "../../config/config";
 import useGenre from "../../components/Genres/useGenre";
 
@@ -43,7 +43,7 @@ const TvSeries = () => {
       <div className="trending">
         {content &&
           content.map((c) => (
-            <SingleContent
+            <MovieCard
               key={c.id}
               id={c.id}
               poster={c.poster_path}

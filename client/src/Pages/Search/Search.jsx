@@ -11,7 +11,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomPagination from "../../components/Pagination/CustomPagination";
-import SingleContent from "../../components/MovieCard/MovieCard";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import { API_KEY,API_URL } from "../../config/config";
 
 const Search = () => {
@@ -87,7 +87,7 @@ const Search = () => {
       <div className="trending">
         {content &&
           content.map((c) => (
-            <SingleContent
+            <MovieCard
               key={c.id}
               id={c.id}
               poster={c.poster_path}

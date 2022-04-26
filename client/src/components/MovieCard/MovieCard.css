@@ -9,10 +9,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.media:hover {
-  background-color: white;
-  color: black;
-}
 
 @media (max-width: 550px) {
   .media {
