@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import More from "@material-ui/icons/More";
 import axios from "axios";
 import {
   API_KEY,
@@ -39,7 +40,8 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
-  const [providers,setProviders]=useState([]);
+  const [providers,setProviders]=useState();
+
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,7 +73,8 @@ export default function TransitionsModal({ children, media_type, id }) {
       `${API_URL}${media_type}/${id}/watch/providers?api_key=${API_KEY}`
     );
     setProviders(data.results.US)
-    console.log(providers)
+  
+    
 
   }
   const convertMinsToTime = (mins) => {
@@ -168,13 +171,20 @@ export default function TransitionsModal({ children, media_type, id }) {
                     Watch the Trailer
                   </Button>
                   
+                 {providers &&(
+                    <Button
+                    variant="contained"
+                    startIcon={<More/>}
+                    color="secondary"
+                    target="__blank"
+                    href={providers.link}
+                  >
+                    More Info
+                  </Button>
+                 )}
                 </div>
               </div>
-              {/* {providers &&
-          providers.map((c) => (
-              <h1>{c.US.buy.logo_path}</h1>
-             
-          ))} */}
+              {/* { headers.map(header=><h1>{header.provider_name}</h1>)} */}
             </div>
           )}
         </Fade>
