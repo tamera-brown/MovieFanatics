@@ -39,6 +39,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
+  const [providers,setProviders]=useState();
 
   const handleOpen = () => {
     setOpen(true);
@@ -59,15 +60,24 @@ export default function TransitionsModal({ children, media_type, id }) {
 
   const fetchVideo = async () => {
     const { data } = await axios.get(
-      `${API_URL}${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      `${API_URL}${media_type}/${id}/videos?api_key=${API_KEY}&language=en-US`
     );
 
     setVideo(data.results[0]?.key);
   };
 
-  useEffect(() => {
+  const fetchProviders=async () =>{
+    const { data } = await axios.get(
+      `${API_URL}${media_type}/${id}/watch/providers?api_key=${API_KEY}`
+    );
+    setProviders(data.results.US)
+    // console.log(providers)
+
+  }
+  useEffect(() => {   
     fetchData();
     fetchVideo();
+    fetchProviders();
     // eslint-disable-next-line
   }, []);
 
@@ -127,7 +137,9 @@ export default function TransitionsModal({ children, media_type, id }) {
                   </span>
                   {content.tagline && (
                     <i className="tagline">{content.tagline}</i>
+
                   )}
+                  <p className="runTime">{content.runtime} minutes</p>
 
                   <span className="ContentModal__description">
                     {content.overview}
@@ -146,8 +158,14 @@ export default function TransitionsModal({ children, media_type, id }) {
                   >
                     Watch the Trailer
                   </Button>
+                  
                 </div>
               </div>
+              {providers &&(
+                    
+                   {providers}
+                
+              )}
             </div>
           )}
         </Fade>
