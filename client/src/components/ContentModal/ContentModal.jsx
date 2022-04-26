@@ -161,11 +161,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                   
                 </div>
               </div>
-              {providers &&(
-                    
-                   {providers}
-                
-              )}
+              
             </div>
           )}
         </Fade>
