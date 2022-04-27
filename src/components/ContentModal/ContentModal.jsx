@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import More from "@material-ui/icons/More";
+import StarOutlined from "@material-ui/icons/StarBorderOutlined"
 import axios from "axios";
 import {
   API_KEY,
@@ -16,6 +17,8 @@ import "./ContentModal.css";
 import { Button } from "@material-ui/core";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import Carousel from "../Carousel/Carousel";
+
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -41,6 +44,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
   const [providers,setProviders]=useState();
+  const [WatchList, setWatchList] = useState([]);
 
 
   const handleOpen = () => {
@@ -50,7 +54,13 @@ export default function TransitionsModal({ children, media_type, id }) {
   const handleClose = () => {
     setOpen(false);
   };
+  const addToWatchlist=(movie)=>{
 
+    // const newFavouriteList = [...WatchList, movie];
+		// setWatchList(newFavouriteList);
+    console.log("clicked")
+
+  }
   const fetchData = async () => {
     const { data } = await axios.get(
       `${API_URL}${media_type}/${id}?api_key=${API_KEY}&language=en-US`
@@ -152,7 +162,12 @@ export default function TransitionsModal({ children, media_type, id }) {
 
                   )}
                   <p className="runTime">{convertMinsToTime(content.runtime)}</p>
-
+                 <span><StarOutlined
+                 style={{fill:'black'}}/> 
+                 Add to Watchlist
+                 </span>
+ 
+    
                   <span className="ContentModal__description">
                     {content.overview}
                   </span>

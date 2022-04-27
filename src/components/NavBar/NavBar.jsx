@@ -7,6 +7,7 @@ import MovieIcon from "@material-ui/icons/Movie";
 import SearchIcon from "@material-ui/icons/Search";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import TheatersIcon from '@material-ui/icons/Theaters';
+import WatchList from '@material-ui/icons/List'
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -34,7 +35,9 @@ export default function NavBar() {
     } else if (value === 3) {
       history.push("/series");
     } else if (value === 4) {
-      history.push("/search");
+      history.push("/watchList");
+    } else if (value === 5){
+      history.push("/search")
     }
   }, [value, history]);
 
@@ -67,11 +70,17 @@ export default function NavBar() {
         label="TV Series"
         icon={<TvIcon />}
       />
+       <BottomNavigationAction
+        style={{ color: "white" }}
+        label="WatchList"
+        icon={<WatchList />}
+      />
       <BottomNavigationAction
         style={{ color: "white" }}
         label="Search"
         icon={<SearchIcon />}
       />
+      
     </BottomNavigation>
   );
 }
