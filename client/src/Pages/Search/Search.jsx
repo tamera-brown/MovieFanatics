@@ -14,6 +14,7 @@ import CustomPagination from "../../components/Pagination/CustomPagination";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import { API_KEY,API_URL } from "../../config/config";
 
+
 const Search = () => {
   const [type, setType] = useState(0);
   const [searchText, setSearchText] = useState("");
@@ -94,8 +95,8 @@ const Search = () => {
               title={c.title || c.name}
               date={c.first_air_date || c.release_date}
               media_type={type ? "tv" : "movie"}
-              vote_average={c.vote_average}
             />
+             
           ))}
         {searchText &&
           !content &&

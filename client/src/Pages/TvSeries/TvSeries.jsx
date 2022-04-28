@@ -6,6 +6,7 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import { API_KEY, API_URL } from "../../config/config";
 import useGenre from "../../components/Genres/useGenre";
 
+
 const TvSeries = () => {
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -50,8 +51,8 @@ const TvSeries = () => {
               title={c.title || c.name}
               date={c.first_air_date || c.release_date}
               media_type="tv"
-              vote_average={c.vote_average}
             />
+           
           ))}
       </div>
       {numOfPages > 1 && (

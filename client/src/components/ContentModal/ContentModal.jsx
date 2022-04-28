@@ -5,8 +5,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import More from "@material-ui/icons/More";
 import StarOutlined from "@material-ui/icons/StarBorderOutlined"
-import ReactPlayer from 'react-player'
-import {useSnackbar,withSnackbar} from 'notistack'
+import ReactStars from "react-rating-stars-component";
+import {useSnackbar} from 'notistack'
 import axios from "axios";
 import {
   API_KEY,
@@ -20,6 +20,7 @@ import { Button } from "@material-ui/core";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import Carousel from "../Carousel/Carousel";
 import { useDispatch } from 'react-redux'
+import VideoModal from "../VideoModal/VideoModal";
 
 
 
@@ -49,6 +50,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [providers,setProviders]=useState();
   const dispatch = useDispatch()
   const {enqueueSnackbar}=useSnackbar()
+  const [traileropen, setTrailerOpen] = useState(false);
 
 
 
@@ -58,6 +60,12 @@ export default function TransitionsModal({ children, media_type, id }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleTrailerOpen= () => {
+    setTrailerOpen(true);
+  };
+  const handleTrailerClose= () => {
+    setTrailerOpen(false);
   };
   const addToWatchlist=(movie)=>{
     dispatch({ type: 'ADD_TO_WATCHLIST', payload: movie })
@@ -132,6 +140,7 @@ export default function TransitionsModal({ children, media_type, id }) {
         BackdropProps={{
           timeout: 500,
         }}
+        
       >
         <Fade in={open}>
           {content && (
@@ -169,7 +178,17 @@ export default function TransitionsModal({ children, media_type, id }) {
                     <i className="tagline">{content.tagline}</i>
 
                   )}
+          
                   <p className="runTime">{convertMinsToTime(content.runtime)}</p>
+                  <p>Rating: {content.vote_average}</p>
+                    <ReactStars
+                    count={content.vote_average}
+                      value={content.vote_average}
+                      edit={false}
+                      size={20}
+                      color1={"#f4c10f"}
+                      isHalf={true}
+                    ></ReactStars>
                  <span><StarOutlined
                  onClick={()=>addToWatchlist(content)}
                  style={{fill:'black'}}/> 
@@ -184,16 +203,28 @@ export default function TransitionsModal({ children, media_type, id }) {
                   <div>
                     <Carousel id={id} media_type={media_type} />
                   </div>
-                  <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} />
                   <Button
                     variant="contained"
                     startIcon={<YouTubeIcon />}
                     color="secondary"
-                    href={`https://www.youtube.com/watch?v=${video}`}
+                    onClick={handleTrailerOpen}
+                    // href={`https://www.youtube.com/watch?v=${video}`}
                   >
                     Watch the Trailer
                   </Button>
-                  
+                <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={traileropen}
+                onClose={handleTrailerClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}>
+                  <VideoModal video={video}/>
+                  </Modal>
                  {providers &&(
                     <Button
                     variant="contained"

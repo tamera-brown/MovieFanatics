@@ -6,6 +6,7 @@ import useGenre from "../../components/Genres/useGenre";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import { API_KEY,API_URL } from "../../config/config";
 
+
 const Movies = () => {
   const [genres, setGenres] = useState([]);
   const [selectedGenres, setSelectedGenres] = useState([]);
@@ -50,8 +51,8 @@ const Movies = () => {
               title={c.title || c.name}
               date={c.first_air_date || c.release_date}
               media_type="movie"
-              vote_average={c.vote_average}
             />
+            
           ))}
       </div>
       {numOfPages > 1 && (

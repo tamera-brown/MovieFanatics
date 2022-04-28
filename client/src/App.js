@@ -23,6 +23,8 @@ function App() {
             <Route path="/series" component={TvSeries} />
             <Route path="/watchList" component={WatchList}/>
             <Route path="/search" component={Search} />
+          
+             
           </Switch>
         </Container>
       </div>

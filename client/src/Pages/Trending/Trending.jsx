@@ -5,6 +5,7 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import CustomPagination from "../../components/Pagination/CustomPagination";
 import { API_KEY,API_URL } from "../../config/config";
 
+
 const Trending = () => {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState([]);
@@ -36,8 +37,8 @@ const Trending = () => {
               title={c.title || c.name}
               date={c.first_air_date || c.release_date}
               media_type={c.media_type}
-              vote_average={c.vote_average}
             />
+       
           ))}
       </div>
       <CustomPagination setPage={setPage} />
