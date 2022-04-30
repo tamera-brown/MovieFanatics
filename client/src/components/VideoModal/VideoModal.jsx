@@ -6,7 +6,7 @@ const VideoModal=({video})=>{
     return(
         
 <ReactPlayer url={`https://www.youtube.com/watch?v=${video}`} playing
-            width="100%" />
+            width="50%" />
             
     )
 };

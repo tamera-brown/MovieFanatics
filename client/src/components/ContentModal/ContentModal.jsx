@@ -68,8 +68,20 @@ export default function TransitionsModal({ children, media_type, id }) {
     setTrailerOpen(false);
   };
   const addToWatchlist=(movie)=>{
-    dispatch({ type: 'ADD_TO_WATCHLIST', payload: movie })
-    enqueueSnackbar(`${movie.title} added to watchlist`,{
+    dispatch({ type: 'ADD_TO_WATCHLIST', 
+    movie:{
+        id:movie.id,
+        poster:movie.poster_path,
+        title:movie.title || movie.name,
+        media_type:movie.media_type,
+        backdrop:movie.backdrop_path,
+        date: movie.first_air_date || movie.release_date,
+        rating:movie.vote_average
+
+
+
+    } })
+    enqueueSnackbar(`${movie.title || movie.name} added to watchlist`,{
       variant:'success',
       anchorOrigin:{
         vertical:'top',horizontal:'center',
@@ -213,8 +225,6 @@ export default function TransitionsModal({ children, media_type, id }) {
                     Watch the Trailer
                   </Button>
                 <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
                 className={classes.modal}
                 open={traileropen}
                 onClose={handleTrailerClose}

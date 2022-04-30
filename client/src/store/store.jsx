@@ -1,9 +1,8 @@
-import { createStore } from 'redux'
-import promiseMiddleware from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
-
+import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from '../reducers/reducers'
 
-const store =createStore(rootReducer);
+const store = configureStore({
+    reducer: rootReducer
+  })
 
 export default store
