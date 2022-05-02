@@ -19,8 +19,9 @@ import "./ContentModal.css";
 import { Button } from "@material-ui/core";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import Carousel from "../Carousel/Carousel";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import VideoModal from "../VideoModal/VideoModal";
+import WatchList from "../../Pages/WatchList/WatchList";
 
 
 
@@ -51,7 +52,8 @@ export default function TransitionsModal({ children, media_type, id }) {
   const dispatch = useDispatch()
   const {enqueueSnackbar}=useSnackbar()
   const [traileropen, setTrailerOpen] = useState(false);
-
+  const wacthListData=state=>state.watchList
+  const watchList=useSelector(wacthListData)
 
 
   const handleOpen = () => {
@@ -67,27 +69,46 @@ export default function TransitionsModal({ children, media_type, id }) {
   const handleTrailerClose= () => {
     setTrailerOpen(false);
   };
-  const addToWatchlist=(movie)=>{
-    dispatch({ type: 'ADD_TO_WATCHLIST', 
-    movie:{
-        id:movie.id,
-        poster:movie.poster_path,
-        title:movie.title || movie.name,
-        media_type:movie.media_type,
-        backdrop:movie.backdrop_path,
-        date: movie.first_air_date || movie.release_date,
-        rating:movie.vote_average
-
-
-
-    } })
-    enqueueSnackbar(`${movie.title || movie.name} added to watchlist`,{
-      variant:'success',
-      anchorOrigin:{
-        vertical:'top',horizontal:'center',
-      },
+  const AddToWatchlist=(movie)=>{
+    const movieExists = watchList.find(element => {
+      if (element.id === movie.id) {
+        return true;
+      }
+    
+      return false;
     });
-    console.log(movie.title)
+    
+    
+    
+    if (movieExists !== undefined) {
+      enqueueSnackbar(`${movie.title || movie.name} already in watchlist`,{
+        variant:'error',
+        anchorOrigin:{
+          vertical:'top',horizontal:'center',
+        },
+      });
+    }else{
+  dispatch({ type: 'ADD_TO_WATCHLIST', 
+  movie:{
+      id:movie.id,
+      poster:movie.poster_path,
+      title:movie.title || movie.name,
+      media_type:movie.media_type,
+      backdrop:movie.backdrop_path,
+      date: movie.first_air_date || movie.release_date,
+      rating:movie.vote_average
+
+
+
+  } })
+  enqueueSnackbar(`${movie.title || movie.name} added to watchlist`,{
+    variant:'success',
+    anchorOrigin:{
+      vertical:'top',horizontal:'center',
+    },
+  });
+    }
+
   }
   const fetchData = async () => {
     const { data } = await axios.get(
@@ -202,7 +223,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                       isHalf={true}
                     ></ReactStars>
                  <span><StarOutlined
-                 onClick={()=>addToWatchlist(content)}
+                 onClick={()=>AddToWatchlist(content)}
                  style={{fill:'black'}}/> 
                  Add to Watchlist
                  </span>
@@ -258,3 +279,4 @@ export default function TransitionsModal({ children, media_type, id }) {
     </>
   );
 }
+
