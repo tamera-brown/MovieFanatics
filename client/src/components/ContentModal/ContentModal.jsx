@@ -93,7 +93,7 @@ export default function TransitionsModal({ children, media_type, id }) {
       id:movie.id,
       poster:movie.poster_path,
       title:movie.title || movie.name,
-      media_type:movie.media_type,
+      media_type:movie.title ? "movie" : "tv",
       backdrop:movie.backdrop_path,
       date: movie.first_air_date || movie.release_date,
       rating:movie.vote_average
@@ -195,6 +195,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                       : unavailableLandscape
                   }
                   alt={content.name || content.title}
+                  
                   className="ContentModal__landscape"
                 />
                 <div className="ContentModal__about">
@@ -209,6 +210,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                   </span>
                   {content.tagline && (
                     <i className="tagline">{content.tagline}</i>
+                    
 
                   )}
           

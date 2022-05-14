@@ -8,6 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import TheatersIcon from '@material-ui/icons/Theaters';
 import WatchList from '@material-ui/icons/List'
+import Login from '@material-ui/icons/Person'
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -38,6 +39,8 @@ export default function NavBar() {
       history.push("/watchList");
     } else if (value === 5){
       history.push("/search")
+    } else if (value === 6){
+      history.push("/login")
     }
   }, [value, history]);
 
@@ -79,6 +82,11 @@ export default function NavBar() {
         style={{ color: "white" }}
         label="Search"
         icon={<SearchIcon />}
+      />
+       <BottomNavigationAction
+        style={{ color: "white" }}
+        label="Login"
+        icon={<Login/>}
       />
       
     </BottomNavigation>

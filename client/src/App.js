@@ -9,6 +9,8 @@ import InTheaters from "./Pages/InTheaters/InTheaters";
 import WatchList from "./Pages/WatchList/WatchList";
 import { Container } from "@material-ui/core";
 import NavBar from "./components/NavBar/NavBar";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Register/Register";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
             <Route path="/series" component={TvSeries} />
             <Route path="/watchList" component={WatchList}/>
             <Route path="/search" component={Search} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
           
              
           </Switch>

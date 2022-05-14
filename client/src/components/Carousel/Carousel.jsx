@@ -19,7 +19,7 @@ const Gallery = ({ id, media_type }) => {
         className="carouselItem__img"
       />
       <b className="carouselItem__txt">{c?.name}</b>
-      <b className="carouselItem__txt">{c?.character}</b>
+      <i className="carouselItem__txt">{c?.character}</i>
     </div>
   ));
 

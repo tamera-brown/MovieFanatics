@@ -13,21 +13,11 @@ export default function appReducer(state = initialState, action) {
         
        
       case "REMOVE_FROM_WATCHLIST":
-        const index = state.watchList.findIndex((list) =>
-                list.id === action.movieId);
-
-            let newCart = [...state.watchList];
-
-            if (index >= 0) {
-                newCart.splice(index, 1);
+            return{
+                watchList:[
+                    ...state.watchList.filter(movie=>movie.id!==action.movieId)
+                ]
             }
-            else {
-                console.warn('cant remove from the cart')
-            }
-            return {
-                ...state,
-                watchList: newCart
-            };
         case "EMPTY_WATCHLIST":
             return{
                 ...state,
