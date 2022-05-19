@@ -5,21 +5,21 @@ import { Formik, Form, useField, useFormikContext } from "formik";
 import * as Yup from "yup";
 
 const Login=()=>{
-    const MyTextInput = ({ label, ...props }) => {
-        // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
-        // which we can spread on <input> and alse replace ErrorMessage entirely.
-        const [field, meta] = useField(props);
-        return (
-          <>
-            <label htmlFor={props.id || props.name}>{label}</label>
-            <input className="text-input" {...field} {...props} />
-            {meta.touched && meta.error ? (
-              <div className="error">{meta.error}</div>
-            ) : null}
-          </>
-        );
-      };
-      
+  const MyTextInput = ({ label, ...props }) => {
+    // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+    // which we can spread on <input>. We can use field meta to show an error
+    // message if the field is invalid and it has been touched (i.e. visited)
+    const [field, meta] = useField(props);
+    return (
+      <>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <input className="text-input" {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </>
+    );
+  };
     return (
         <>
           <h1>Login</h1>
@@ -44,44 +44,25 @@ const Login=()=>{
                     email: values.email,
                     password: values.password
                   };
-            //       dispatch(loginUser(dataToSubmit))
-            // .then(response => {
-            //   if (response.payload.loginSuccess) {
-            //     window.localStorage.setItem('userId', response.payload.userId);
-            //     if (rememberMe === true) {
-            //       window.localStorage.setItem('rememberMe', values.id);
-            //     } else {
-            //       localStorage.removeItem('rememberMe');
-            //     }
-            //     props.history.push("/");
-            //   } else {
-            //     setFormErrorMessage('Check out your Account or Password again')
-            //   }
-            // })
-            // .catch(err => {
-            //   setFormErrorMessage('Check out your Account or Password again')
-            //   setTimeout(() => {
-            //     setFormErrorMessage("")
-            //   }, 3000);
-            // });
+            
           setSubmitting(false);
         }, 500);
       }}
           >
             <Form>
-              <MyTextInput
-                label="Email Address"
-                name="email"
-                type="email"
-                placeholder="Email"
-              />
-               <MyTextInput
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="Password"
-              />
-              
+            <MyTextInput
+             label="Email Address"
+             name="email"
+             type="email"
+             placeholder="Email"
+           />
+           <MyTextInput
+             label="Password"
+             name="password"
+             type="password"
+             placeholder="Password"
+           />
+            
               <button type="submit">Submit</button>
               <div>
                 Or <Link to={"/register"}>register now!</Link>

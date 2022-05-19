@@ -145,6 +145,12 @@ export default function TransitionsModal({ children, media_type, id }) {
   }
   return`${hours} hr ${minutes} mins` ;
 }
+const seasonNum=(show)=>{
+  if(show.number_of_seasons>1){
+    return `${show.number_of_seasons} seasons`
+  }
+  return `${show.number_of_seasons} season`
+}
   useEffect(() => {   
     fetchData();
     fetchVideo();
@@ -214,7 +220,10 @@ export default function TransitionsModal({ children, media_type, id }) {
 
                   )}
           
-                  <p className="runTime">{convertMinsToTime(content.runtime)}</p>
+                  <p className="runTime">
+                    {content.title ? convertMinsToTime(content.runtime) : seasonNum(content)}
+                    </p>
+                  {/* {convertMinsToTime(content.runtime)}</p> */}
                   <p>Rating: {content.vote_average}</p>
                     <ReactStars
                     count={content.vote_average}
@@ -243,7 +252,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                     startIcon={<YouTubeIcon />}
                     color="secondary"
                     onClick={handleTrailerOpen}
-                    // href={`https://www.youtube.com/watch?v=${video}`}
+                    
                   >
                     Watch the Trailer
                   </Button>
@@ -271,7 +280,7 @@ export default function TransitionsModal({ children, media_type, id }) {
                  )}
                 </div>
               </div>
-              {/* { headers.map(header=><h1>{header.provider_name}</h1>)} */}
+            
             </div>
             
           )}

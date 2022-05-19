@@ -1,5 +1,7 @@
 input[type="email"],
 input[type="password"],
+input[type="text"],
+select,
 textarea{
   width: 400px;
   border-radius: 10px;
@@ -11,16 +13,16 @@ label {
   font-weight: bold;
   display: flex;
 }
+
+label.checkbox {
+  font-weight: normal;
+}
 button[type="submit"] {
   margin-top: 1rem;
   padding: 0.5rem 1.25rem;
-  font-size: 1rem;
-  border-radius: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
 }
 .error{
   color: red;
 }
-
-
-
-
