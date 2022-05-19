@@ -1,4 +1,4 @@
-const mogoose=require('mogoose')
+const mogoose=require("mongoose")
 
 const UserSchema=mogoose.Schema({
     firstName:{type:String,maxlength:50},
