@@ -1,12 +1,12 @@
 const mogoose=require("mongoose")
 
 const UserSchema=mogoose.Schema({
-    firstName:{type:String,maxlength:50},
-    lastName:{type:String,maxlength:50},
-    email:{type:String,unique:1,trim:true},
-    password:{type:String,minlength:6}
+    username:{type:String,maxlength:15,required:true,unique:true},
+    email:{type:String,unique:true,require:true},
+    password:{type:String,minlength:6},
+    profilePic: { type: String, defaut: "" },
+    
 })
-const User=mogoose.model('users',UserSchema)
+module.exports=mogoose.model('users',UserSchema)
 
-module.exports={User}
 
