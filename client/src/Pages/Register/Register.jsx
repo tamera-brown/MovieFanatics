@@ -1,10 +1,15 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
+import { useSnackbar } from "notistack";
+import { useHistory} from 'react-router-dom';
+import { register } from "../../components/service";
 import "./Register.css"
 import { Formik, Form,useField } from "formik";
 import * as Yup from "yup";
 
 const Register=()=>{
+  const {enqueueSnackbar}=useSnackbar()
+  const navigate = useHistory();
   const MyTextInput = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
     // which we can spread on <input>. We can use field meta to show an error
@@ -44,19 +49,15 @@ const Register=()=>{
         <Formik
           initialValues={{
             email: '',
-            lastName: '',
-            firstName: '',
+            username:'',
             password: '',
             confirmPassword: '',
             acceptedTerms: false
           }}
           validationSchema={Yup.object().shape({
-            firstName: Yup.string()
-              .max(15, "Must be 15 characters or less")
-              .required('First Name is required'),
-            lastName: Yup.string()
-            .max(15, "Must be 20 characters or less")
-            .required('Last Name is required'),
+            username: Yup.string()
+            .max(15, "Must be 15 characters or less")
+            .required('Username is required'),
             email: Yup.string()
               .email('Email is invalid')
               .required('Email is required'),
@@ -74,32 +75,40 @@ const Register=()=>{
             setTimeout(() => {
     
               let dataToSubmit = {
+                username:values.username,
                 email: values.email,
-                password: values.password,
-                firstName: values.firstName,
-                lastname: values.lastname,
-                confirmPassword:values.confirmPassword,
-                acceptedTerms:values.acceptedTerms
-              
+                password: values.password
               };
     
+              register(dataToSubmit)
+              .then((response)=>{
+                  enqueueSnackbar('Register was successful',{
+                      variant:'success',
+                      anchorOrigin:{
+                          vertical:'bottom',horizontal:'center',
+                      },
+                  });
+                      navigate('./login');
+
+              }).catch((error)=>{
+                  enqueueSnackbar('Register failed',{
+                      variant:'error',
+                      anchorOrigin:{
+                          vertical:'bottom',horizontal:'center'
+                      },
+                  });
+              });
               setSubmitting(false);
             }, 500);
           }}
         >
           
           <Form>
-          <MyTextInput
-             label="First Name"
-             name="firstName"
-             type="text"
-             placeholder="First Name"
-           />
          <MyTextInput
-             label="Last Name"
-             name="lastName"
+             label="Username"
+             name="username"
              type="text"
-             placeholder="Last Name"
+             placeholder="Username"
            />
         <MyTextInput
              label="Email Address"

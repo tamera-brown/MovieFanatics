@@ -1,10 +1,26 @@
 const initialState = {
-    watchList:[]
+    watchList:[],
+    currentUser:null,
+    isAuthenticated:false
 }
 // Use the initialState as a default value
 export default function appReducer(state = initialState, action) {
    
     switch (action.type) {
+        case "USER_SIGN_IN":
+        return{
+            ...state,
+            currentUser:action.currentUser,
+            isAuthenticated:true
+        }
+      case "USER_SIGN_OUT":
+        sessionStorage.removeItem('Authorization')
+        return{
+            ...state,
+            currentUser:null,
+            isAuthenticated:false
+        }
+
       case "ADD_TO_WATCHLIST": 
              return{
                 ...state,

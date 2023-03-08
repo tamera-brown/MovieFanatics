@@ -224,7 +224,7 @@ const seasonNum=(show)=>{
                     {content.title ? convertMinsToTime(content.runtime) : seasonNum(content)}
                     </p>
                   {/* {convertMinsToTime(content.runtime)}</p> */}
-                  <p>Rating: {content.vote_average}</p>
+                  <p>Rating: {content.vote_average.toFixed(1)}</p>
                     <ReactStars
                     count={content.vote_average}
                       value={content.vote_average}
